@@ -14,11 +14,11 @@
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
 
-// 绑定当前访问到index模块
-define('BIND_MODULE','index');
-
 // 定义配置文件目录和应用目录同级
 define('CONF_PATH', __DIR__.'/../config/');
+
+// 绑定当前访问到index模块
+define('BIND_MODULE','index');
 
 // 定义日志目录
 define('LOG_PATH', __DIR__.'/../runtime/log/'.BIND_MODULE.'/');

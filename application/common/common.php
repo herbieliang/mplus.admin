@@ -10,3 +10,17 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+namespace app\common;
+
+class common{
+    #region 获取唯一Id
+    /**
+     * 获取唯一Id
+     * @return string
+     */
+    public static function get_uniqueness_id(){
+        return time().mt_rand(100, 999);
+    }
+    #endregion
+}

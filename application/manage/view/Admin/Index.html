@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/animate.min.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/global.min.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/list.min.css">
+</head>
+<body>
+
+<div id="main-wrap" class="animated fadeIn">
+    <div class="main-title">
+        <h1>管理员管理</h1>
+        <div class="toolbar">
+            <button id="batch_delete_btn" class="layui-btn layui-btn-danger layui-btn-small do-action" style="display: none;" data-type="doBatchDelete">
+                <i class="layui-icon">&#xe640;</i> 批量删除
+            </button>
+            <button class="layui-btn layui-btn-small do-action" data-type="doAdd" data-href="@{:url('Admin/Add')}">
+                <i class="layui-icon">&#xe608;</i> 添加管理员
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div class="main-content">
+        <table class="table-sort table-box dataTable">
+            <thead>
+                <tr>
+                    <th width="2%"><input type="checkbox" class="m-checkbox"></th>
+                    <th width="15%">编号</th>
+                    <th width="15%">帐号</th>
+                    <th width="8%">密码</th>
+                    <th width="15%">昵称</th>
+                    <th width="27%">邮箱</th>
+                    <th width="8%">状态</th>
+                    <th width="10%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            @{volist name='data.admins' id='item'}
+                <tr>
+                    <td><input type="checkbox" name="uuid"></td>
+                    <td>@{$item.uuid}</td>
+                    <td>@{$item.account}</td>
+                    <td><a href="">修改密码</a></td>
+                    <td>@{$item.nickname}</td>
+                    <td>@{$item.email}</td>
+                    <td>启用</td>
+                    <td>
+                        <button class="layui-btn layui-btn-normal layui-btn-mini do-action" data-type="doEdit">编辑</button>
+                        <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete">删除</button>
+                    </td>
+                </tr>
+            @{/volist}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="@{$data.resource_path}/assets/plugin/layui/layui.js"></script>
+<script src="@{$data.resource_path}/assets/js/global.min.js"></script>
+<script src="@{$data.resource_path}/project/js/admin.min.js"></script>
+</body>
+</html>

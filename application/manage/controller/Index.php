@@ -7,12 +7,26 @@
  */
 
 namespace app\manage\controller;
-use think\Controller;
+use app\manage\common\controller\BaseController;
 
-class Index extends Controller
+/**
+ * Class Index
+ * @package app\manage\controller
+ */
+class Index extends BaseController
 {
+    public function Index(){
+        $this->assign('data', $this->data);
+        return $this->fetch('Index' . DS . 'Index');
+    }
 
-    public function IndexAction(){
-        return $this->fetch('Index'.DS.'Index');
+    public function Home(){
+        $this->assign('data', $this->data);
+        return $this->fetch('Index' . DS .'Home');
+    }
+
+    public function Menu(){
+        $this->assign('data', $this->data);
+        return $this->fetch('Index' . DS .'Menu');
     }
 }

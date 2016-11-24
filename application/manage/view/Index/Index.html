@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Mplus.Admin</title>
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/plugin/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/global.min.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/index.min.css">
 </head>
 <body>
-manage
+
+<div id="page-wrap">
+    <div class="nav">
+        <ul class="layui-nav layui-nav-tree layui-nav-side">
+            <div class="user-info">
+                <img src="@{$data.resource_path}/assets/image/avater.png">
+                <div>
+                    <p>
+                        admin
+                        <a class="tab-open" href="javascript:;" data-href="@{:url('Index/Home')}" data-name="个人设置">
+                            <i class="layui-icon">&#xe642;</i>
+                            <span class="layui-hide">个人设置</span>
+                        </a>
+                    </p>
+                    <p>超级管理员</p>
+                </div>
+                <div class="sign-out" data-type="signOut">
+                    <a href="javascript:;"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <li class="layui-nav-item">
+                <a id="go-dashboard" href="javascript:;"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;&nbsp;控制台</a>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;"><i class="fa fa-file" aria-hidden="true"></i>&nbsp;&nbsp;核心系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a class="tab-open" href="javascript:;" data-href="@{:url('Admin/Index')}" data-name="管理员管理">管理员管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div id="page-content">
+        <div class="top-bar">
+            <div class="logo">
+                Mplus.Admin 后台框架
+            </div>
+            <div class="top-nav">
+                <span class="layui-breadcrumb" lay-separator=" ">
+                  <a href="javascript:;">
+                      <i class="fa fa-eraser" aria-hidden="true"></i> 清除缓存
+                  </a>
+                  <a href="javascript:;" target="_blank">
+                      <i class="fa fa-eye" aria-hidden="true"></i> 预览网站
+                  </a>
+                </span>
+            </div>
+        </div>
+        <div class="page-main">
+            <div class="layui-tab layui-tab-card page-tab" lay-filter="page-tab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">控制台</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <iframe class="tab-main" src="@{:url('Index/Home')}"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 你的HTML代码 -->
+
+<script src="@{$data.resource_path}/assets/plugin/layui/layui.js"></script>
+<script src="@{$data.resource_path}/assets/js/global.min.js"></script>
+<script src="@{$data.resource_path}/assets/js/index.min.js"></script>
 </body>
 </html>
