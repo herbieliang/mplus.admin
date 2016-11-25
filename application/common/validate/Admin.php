@@ -16,7 +16,7 @@ use think\Validate;
 class Admin extends Validate
 {
     protected $rule = [
-        'account'               =>  'require|max:20|unique:admin|token',
+        'account'               =>  'require|max:20|unique:admin',
         'password'              =>  'require',
         'nickname'              =>  'max:10',
         'email'                 =>  'max:30',
@@ -26,7 +26,6 @@ class Admin extends Validate
         'account.require'       =>  '请填写管理员帐号！',
         'account.max'           =>  '管理员帐号最多不能超过20个字符！',
         'account.unique'        =>  '管理员帐号已存在！',
-        'account.token'         =>  '表单令牌验证失败！',
         'password.require'      =>  '请填写管理员密码！',
         'nickname.max'          =>  '管理员昵称最多不能超过10个字符！',
         'email'                 =>  '邮箱格式错误！',

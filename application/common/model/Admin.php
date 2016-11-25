@@ -16,7 +16,8 @@ use think\Model;
  */
 class Admin extends Model
 {
-    protected $insert = ['uuid', 'password'];
+    protected $insert = ['uuid', 'password', 'state'];
+    protected $update = ['password', 'state'];
 
     protected function setUuidAttr($value){
         return common::get_uniqueness_id();
@@ -25,5 +26,9 @@ class Admin extends Model
     protected function setPasswordAttr($value)
     {
         return md5(md5($value));
+    }
+
+    protected function setStateAttr($value){
+        return $value === 'on' ? 1 : 0;
     }
 }

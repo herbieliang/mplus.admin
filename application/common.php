@@ -20,7 +20,7 @@ class common{
      * @return string
      */
     public static function get_uniqueness_id(){
-        return time().mt_rand(100, 999);
+        return uniqid(mt_rand(100, 999), false);
     }
     #endregion
 }

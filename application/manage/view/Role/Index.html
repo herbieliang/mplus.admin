@@ -13,13 +13,13 @@
 
 <div id="main-wrap" class="animated fadeIn">
     <div class="main-title">
-        <h1>管理员管理</h1>
+        <h1>角色管理</h1>
         <div class="toolbar">
             <button id="batch_delete_btn" class="layui-btn layui-btn-danger layui-btn-small do-action" style="display: none;" data-type="doBatchDelete" data-href="@{:url('BatchDelete')}">
                 <i class="layui-icon">&#xe640;</i> 批量删除
             </button>
             <button class="layui-btn layui-btn-small do-action" data-type="doAdd" data-href="@{:url('Add')}">
-                <i class="layui-icon">&#xe608;</i> 添加管理员
+                <i class="layui-icon">&#xe608;</i> 添加角色
             </button>
         </div>
     </div>
@@ -30,34 +30,26 @@
                 <tr>
                     <th width="2%"><input type="checkbox" class="icheck"></th>
                     <th width="15%">编号</th>
-                    <th width="15%">帐号</th>
-                    <th width="8%">密码</th>
-                    <th width="15%">昵称</th>
-                    <th width="27%">邮箱</th>
-                    <th width="8%">状态</th>
+                    <th width="15%">角色名称</th>
+                    <th width="20%">说明</th>
+                    <th width="38%">包含权限</th>
                     <th width="10%">操作</th>
                 </tr>
             </thead>
             <tbody>
-            @{volist name='data.admins' id='item'}
+            @{volist name='data.roles' id='item'}
                 <tr>
                     <td><input type="checkbox" name="uuid" class="icheck" data-value="@{$item.uuid}"></td>
                     <td>@{$item.uuid}</td>
-                    <td>@{$item.account}</td>
-                    <td><a href="javascript:;" class="do-action" data-type="doUpdatePassword" data-href="@{:url('UpdatePassword')}" data-value="@{$item.uuid}">修改密码</a></td>
-                    <td>@{$item.nickname}</td>
-                    <td>@{$item.email}</td>
+                    <td>@{$item.title}</td>
+                    <td>@{$item.description}</td>
+                    <td>@{$item.permission}</td>
                     <td>
-                        @{eq name='item.state' value='1'}
-                            <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 18px; color: green;"></i>
-                        @{else/}
-                            <i class="fa fa-times-circle" aria-hidden="true" style="font-size: 18px; color: red;"></i>
-                        @{/eq}
-                    </td>
-                    <td>
-                        <button class="layui-btn layui-btn-normal layui-btn-mini do-action" data-type="doEdit" data-href="@{:url('Edit', ['uuid'=>$item.uuid])}">编辑</button>
                         @{neq name='item.uuid' value='000000000000000'}
+                            <button class="layui-btn layui-btn-normal layui-btn-mini do-action" data-type="doEdit" data-href="@{:url('Edit', ['uuid'=>$item.uuid])}">编辑</button>
                             <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.uuid}">删除</button>
+                        @{else/}
+                            无法编辑
                         @{/neq}
                     </td>
                 </tr>
@@ -69,6 +61,6 @@
 
 <script src="@{$data.resource_path}/assets/plugin/layui/layui.js"></script>
 <script src="@{$data.resource_path}/assets/js/global.min.js"></script>
-<script src="@{$data.resource_path}/project/js/admin.min.js"></script>
+<script src="@{$data.resource_path}/project/js/role.min.js"></script>
 </body>
 </html>

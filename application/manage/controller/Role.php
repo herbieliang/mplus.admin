@@ -1,9 +1,9 @@
 <?php
 /**
- * 管理员控制器
+ * 角色控制器
  * User: Zachary Liang
- * Date: 16-11-24
- * Time: 下午4:35
+ * Date: 16-11-25
+ * Time: 下午5:46
  */
 
 namespace app\manage\controller;
@@ -11,23 +11,23 @@ use app\manage\common\controller\BaseController;
 use think\Loader;
 
 /**
- * Class Admin
+ * Class Role
  * @package app\manage\controller
  */
-class Admin extends BaseController
+class Role extends BaseController
 {
     /**
-     * @var \app\manage\logic\Admin
+     * @var \app\manage\logic\Role
      */
-    private $admin_logic;
+    private $role_logic;
 
     /**
      * 构造方法
      */
-    protected function _initialize()
+    public function _initialize()
     {
         parent::_initialize();
-        $this->admin_logic = Loader::model('Admin', 'logic', null, 'manage');
+        $this->role_logic = Loader::model('Role', 'logic', null, 'manage');
     }
 
     /**
@@ -35,9 +35,9 @@ class Admin extends BaseController
      * @return mixed
      */
     public function Index(){
-        $this->data['admins'] = $this->admin_logic->get_list();
+        $this->data['roles'] = $this->role_logic->get_list();
         $this->assign('data', $this->data);
-        return $this->fetch('Admin' . DS . 'Index');
+        return $this->fetch('Role' . DS . 'Index');
     }
 
     /**
@@ -46,10 +46,10 @@ class Admin extends BaseController
      */
     public function Add(){
         if ($_POST){
-            return json($this->admin_logic->add($_POST));
+            return json($this->role_logic->add($_POST));
         } else {
             $this->assign('data', $this->data);
-            return $this->fetch('Admin' . DS . 'Add');
+            return $this->fetch('Role' . DS . 'Add');
         }
     }
 
@@ -60,11 +60,11 @@ class Admin extends BaseController
      */
     public function Edit($uuid){
         if ($_POST){
-            return json($this->admin_logic->edit($_POST, $uuid));
+            return json($this->role_logic->edit($_POST, $uuid));
         } else {
-            $this->data['admin'] = $this->admin_logic->get_model($uuid);
+            $this->data['role'] = $this->role_logic->get_model($uuid);
             $this->assign('data', $this->data);
-            return $this->fetch('Admin' . DS . 'Edit');
+            return $this->fetch('Role' . DS . 'Edit');
         }
     }
 
@@ -74,7 +74,7 @@ class Admin extends BaseController
      */
     public function Delete(){
         if ($_POST){
-            return json($this->admin_logic->del($_POST));
+            return json($this->role_logic->del($_POST));
         }
     }
 
@@ -84,19 +84,7 @@ class Admin extends BaseController
      */
     public function BatchDelete(){
         if ($_POST){
-            return json($this->admin_logic->batch_del($_POST));
+            return json($this->role_logic->batch_del($_POST));
         }
     }
-
-    /**
-     * 更新密码
-     * @return \think\response\Json
-     */
-    public function UpdatePassword(){
-        if ($_POST){
-            return json($this->admin_logic->update_password($_POST));
-        }
-    }
-
-
 }

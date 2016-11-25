@@ -29,6 +29,9 @@ class BaseLogic extends Model
         if (!defined('DELETE_FAILURE_TEXT')){define('DELETE_FAILURE_TEXT', '删除失败！');};
         if (!defined('BATCH_DELETE_SUCCESS_TEXT')){define('BATCH_DELETE_SUCCESS_TEXT', '批量删除成功！');};
         if (!defined('BATCH_DELETE_FAILURE_TEXT')){define('BATCH_DELETE_FAILURE_TEXT', '批量删除失败！');};
+        if (!defined('ADMIN_CANNOT_DELETE_TEXT')){define('ADMIN_CANNOT_DELETE_TEXT', '内置管理员禁止删除！');};
+        if (!defined('UPDATE_PASSWORD_SUCCESS_TEXT')){define('UPDATE_PASSWORD_SUCCESS_TEXT', '密码更新成功！');};
+        if (!defined('UPDATE_PASSWORD_FAILURE_TEXT')){define('UPDATE_PASSWORD_FAILURE_TEXT', '密码更新失败！');};
+        if (!defined('ROLE_CANNOT_DELETE_TEXT')){define('ROLE_CANNOT_DELETE_TEXT', '内置角色禁止删除！');};
     }
-
 }

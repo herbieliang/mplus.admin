@@ -17,9 +17,9 @@ interface ILogic
 
     public function add($param);
 
-    public function edit($param);
+    public function edit($param, $uuid);
 
-    public function del($uuid);
+    public function del($param);
 
     public function batch_del($param);
 }
