@@ -7,6 +7,7 @@
  */
 
 namespace app\manage\controller;
+use app\manage\common\Auth;
 use app\manage\common\controller\BaseController;
 use think\Loader;
 
@@ -70,21 +71,16 @@ class Admin extends BaseController
 
     /**
      * 删除
+     * @param $type
      * @return \think\response\Json
      */
-    public function Delete(){
+    public function Delete($type = ''){
         if ($_POST){
-            return json($this->admin_logic->del($_POST));
-        }
-    }
-
-    /**
-     * 批量删除
-     * @return \think\response\Json
-     */
-    public function BatchDelete(){
-        if ($_POST){
-            return json($this->admin_logic->batch_del($_POST));
+            if ($type === 'batch'){
+                return json($this->admin_logic->batch_del($_POST));
+            } else {
+                return json($this->admin_logic->del($_POST));
+            }
         }
     }
 
@@ -97,6 +93,4 @@ class Admin extends BaseController
             return json($this->admin_logic->update_password($_POST));
         }
     }
-
-
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/animate.min.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/global.min.css">
+    <link rel="stylesheet" href="@{$data.resource_path}/assets/css/form.min.css">
+</head>
+<body>
+
+<div id="main-wrap" class="animated fadeIn">
+    <div class="main-title">
+        <h1>添加权限组</h1>
+        <div class="toolbar">
+            <!--此处可以添加标题右侧的工具按钮-->
+        </div>
+    </div>
+    <hr>
+    <div class="main-content">
+        <form class="layui-form" action="@{:url('Add')}" method="post" id="formAuthGroup">
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限组名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="title" lay-verify="required" placeholder="请输入权限组名称" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">包含权限</label>
+                <div class="layui-input-block">
+                    @{volist name='data.rules' id='item'}
+                        <input type="checkbox" name="rules[@{$item.id}]" value="@{$item.id}" title="@{$item.title}">
+                    @{/volist}
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否启用</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="status" lay-skin="switch" class="switch-text-yes">
+                </div>
+                <div class="layui-form-mid layui-word-aux">关闭状态下无法使用</div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formAuthGroup">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button type="button" class="layui-btn layui-btn-primary do-action" data-type="doGoBack" data-href="@{:url('AuthGroup/Index')}">返回列表</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="@{$data.resource_path}/assets/plugin/layui/layui.js"></script>
+<script src="@{$data.resource_path}/assets/js/global.min.js"></script>
+<script src="@{$data.resource_path}/project/js/auth_group.min.js"></script>
+</body>
+</html>

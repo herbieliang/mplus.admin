@@ -1,0 +1,19 @@
+<?php
+/**
+ * 权限节点模型
+ * User: Zachary Liang
+ * Date: 16-11-26
+ * Time: 下午2:58
+ */
+
+namespace app\common\model;
+use think\Model;
+
+/**
+ * Class AuthRule
+ * @package app\common\model
+ */
+class AuthRule extends Model
+{
+
+}

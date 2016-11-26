@@ -24,9 +24,4 @@ class Index extends BaseController
         $this->assign('data', $this->data);
         return $this->fetch('Index' . DS .'Home');
     }
-
-    public function Menu(){
-        $this->assign('data', $this->data);
-        return $this->fetch('Index' . DS .'Menu');
-    }
 }

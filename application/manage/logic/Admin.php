@@ -26,7 +26,7 @@ class Admin extends BaseLogic implements ILogic
     /**
      * @var \app\common\validate\Admin
      */
-//    protected $validate;
+    protected $validate;
 
     /**
      * 构造函数

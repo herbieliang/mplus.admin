@@ -33,5 +33,6 @@ class BaseLogic extends Model
         if (!defined('UPDATE_PASSWORD_SUCCESS_TEXT')){define('UPDATE_PASSWORD_SUCCESS_TEXT', '密码更新成功！');};
         if (!defined('UPDATE_PASSWORD_FAILURE_TEXT')){define('UPDATE_PASSWORD_FAILURE_TEXT', '密码更新失败！');};
         if (!defined('ROLE_CANNOT_DELETE_TEXT')){define('ROLE_CANNOT_DELETE_TEXT', '内置角色禁止删除！');};
+        if (!defined('AUTH_GROUP_CANNOT_DELETE_TEXT')){define('AUTH_GROUP_CANNOT_DELETE_TEXT', '内置权限组禁止删除！');};
     }
 }
