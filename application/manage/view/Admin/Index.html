@@ -29,11 +29,12 @@
             <thead>
                 <tr>
                     <th width="2%"><input type="checkbox" class="icheck"></th>
-                    <th width="15%">编号</th>
+                    <th width="8%">编号</th>
                     <th width="15%">帐号</th>
                     <th width="8%">密码</th>
                     <th width="15%">昵称</th>
-                    <th width="27%">邮箱</th>
+                    <th width="20%">邮箱</th>
+                    <th width="14%">角色</th>
                     <th width="8%">状态</th>
                     <th width="10%">操作</th>
                 </tr>
@@ -42,13 +43,14 @@
             @{volist name='data.admins' id='item'}
                 <tr>
                     <td><input type="checkbox" name="uuid" class="icheck" data-value="@{$item.uuid}"></td>
-                    <td>@{$item.uuid}</td>
+                    <td>@{$item.id}</td>
                     <td>@{$item.account}</td>
                     <td>
                         <a href="javascript:;" class="do-action" data-type="doUpdatePassword" data-href="@{:url('UpdatePassword')}" data-value="@{$item.uuid}">修改密码</a>
                     </td>
                     <td>@{$item.nickname}</td>
                     <td>@{$item.email}</td>
+                    <td>@{$item.role_name}</td>
                     <td>
                         @{eq name='item.state' value='1'}
                             <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 18px; color: green;"></i>

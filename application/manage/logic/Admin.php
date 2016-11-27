@@ -24,7 +24,12 @@ class Admin extends BaseLogic implements ILogic
     private $admin_model;
 
     /**
-     * @var \app\common\validate\Admin
+     * @var \app\common\model\AuthGroupAccess
+     */
+    private $auth_group_access_model;
+
+    /**
+     * @var common\validate\Admin
      */
     protected $validate;
 
@@ -35,7 +40,8 @@ class Admin extends BaseLogic implements ILogic
     {
         parent::initialize();
         $this->admin_model = Loader::model('Admin');
-        $this->validate = Loader::validate('Admin');
+        $this->auth_group_access_model = Loader::model('AuthGroupAccess');
+        $this->validate = Loader::validate('Admin', 'validate', null, 'manage\\common');
     }
 
     /**
@@ -71,6 +77,7 @@ class Admin extends BaseLogic implements ILogic
             return common::return_result('500', $this->validate->getError(), null);
         } else {
             $result = $this->admin_model->save($param);
+            $this->admin_model->AuthGroupAccess()->save(['group_id' => $param['role']]);
             return $result ?
                 common::return_result('200', ADD_SUCCESS_TEXT, url('Admin/Index')) :
                 common::return_result('500', ADD_FAILURE_TEXT, null);
@@ -90,6 +97,8 @@ class Admin extends BaseLogic implements ILogic
             return common::return_result('500', $this->validate->getError(), null);
         } else {
             $result = $this->admin_model->save($param, ['uuid' => $uuid]);
+            $admin = \app\common\model\Admin::find($result);
+            $admin->AuthGroupAccess->save(['group_id' => $param['role']]);
             return $result ?
                 common::return_result('200', EDIT_SUCCESS_TEXT, url('Admin/Index')) :
                 common::return_result('500', EDIT_FAILURE_TEXT, null);
@@ -143,7 +152,7 @@ class Admin extends BaseLogic implements ILogic
         }
 
         $data['password'] = $param['password'];
-        $result = $this->admin_model->save($data, ['uuid' => $param['item']]);
+        $result = $this->admin_model->isUpdate(true)->save($data, ['uuid' => $param['item']]);
         return $result ?
             common::return_result('200', UPDATE_PASSWORD_SUCCESS_TEXT, null) :
             common::return_result('500', UPDATE_PASSWORD_FAILURE_TEXT, null);

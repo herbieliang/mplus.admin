@@ -1,9 +1,9 @@
 <?php
 /**
- * 角色控制器
+ * 权限节点控制器
  * User: Zachary Liang
- * Date: 16-11-26
- * Time: 下午2:51
+ * Date: 16-11-27
+ * Time: 上午10:41
  */
 
 namespace app\manage\controller;
@@ -11,16 +11,11 @@ use app\manage\common\controller\BaseController;
 use think\Loader;
 
 /**
- * Class AuthGroup
+ * Class AuthRule
  * @package app\manage\controller
  */
-class AuthGroup extends BaseController
+class AuthRule extends BaseController
 {
-    /**
-     * @var \app\manage\logic\AuthGroup
-     */
-    private $auth_group_logic;
-
     /**
      * @var \app\manage\logic\AuthRule
      */
@@ -32,9 +27,7 @@ class AuthGroup extends BaseController
     public function _initialize()
     {
         parent::_initialize();
-        $this->auth_group_logic = Loader::model('AuthGroup', 'logic', null, 'manage');
         $this->auth_rule_logic = Loader::model('AuthRule', 'logic', null, 'manage');
-        $this->data['rules'] = $this->auth_rule_logic->get_list_without_closed();
     }
 
     /**
@@ -42,9 +35,9 @@ class AuthGroup extends BaseController
      * @return mixed
      */
     public function Index(){
-        $this->data['auth_groups'] = $this->auth_group_logic->get_list();
+        $this->data['auth_rules'] = $this->auth_rule_logic->get_list();
         $this->assign('data', $this->data);
-        return $this->fetch('AuthGroup' . DS . 'Index');
+        return $this->fetch('AuthRule' . DS . 'Index');
     }
 
     /**
@@ -53,10 +46,10 @@ class AuthGroup extends BaseController
      */
     public function Add(){
         if ($_POST){
-            return json($this->auth_group_logic->add($_POST));
+            return json($this->auth_rule_logic->add($_POST));
         } else {
             $this->assign('data', $this->data);
-            return $this->fetch('AuthGroup' . DS . 'Add');
+            return $this->fetch('AuthRule' . DS . 'Add');
         }
     }
 
@@ -67,11 +60,11 @@ class AuthGroup extends BaseController
      */
     public function Edit($uuid){
         if ($_POST){
-            return json($this->auth_group_logic->edit($_POST, $uuid));
+            return json($this->auth_rule_logic->edit($_POST, $uuid));
         } else {
-            $this->data['auth_group'] = $this->auth_group_logic->get_model($uuid);
+            $this->data['auth_rule'] = $this->auth_rule_logic->get_model($uuid);
             $this->assign('data', $this->data);
-            return $this->fetch('AuthGroup' . DS . 'Edit');
+            return $this->fetch('AuthRule' . DS . 'Edit');
         }
     }
 
@@ -83,9 +76,9 @@ class AuthGroup extends BaseController
     public function Delete($type = ''){
         if ($_POST){
             if ($type === 'batch'){
-                return json($this->auth_group_logic->batch_del($_POST));
+                return json($this->auth_rule_logic->batch_del($_POST));
             } else {
-                return json($this->auth_group_logic->del($_POST));
+                return json($this->auth_rule_logic->del($_POST));
             }
         }
     }

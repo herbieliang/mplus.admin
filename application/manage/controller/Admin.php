@@ -7,8 +7,8 @@
  */
 
 namespace app\manage\controller;
-use app\manage\common\Auth;
 use app\manage\common\controller\BaseController;
+use app\manage\logic\AuthGroup;
 use think\Loader;
 
 /**
@@ -23,12 +23,19 @@ class Admin extends BaseController
     private $admin_logic;
 
     /**
+     * @var AuthGroup
+     */
+    private $auth_group_logic;
+
+    /**
      * 构造方法
      */
     protected function _initialize()
     {
         parent::_initialize();
         $this->admin_logic = Loader::model('Admin', 'logic', null, 'manage');
+        $this->auth_group_logic = Loader::model('AuthGroup', 'logic', null, 'manage');
+        $this->data['auth_groups'] = $this->auth_group_logic->get_list_without_closed();
     }
 
     /**

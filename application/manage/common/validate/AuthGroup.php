@@ -1,12 +1,12 @@
 <?php
 /**
- * 权限组模型验证器
+ * 角色模型验证器
  * User: Zachary Liang
  * Date: 16-11-26
  * Time: 下午2:18
  */
 
-namespace app\common\validate;
+namespace app\manage\common\validate;
 use think\Validate;
 
 class AuthGroup extends Validate

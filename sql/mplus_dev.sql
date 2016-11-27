@@ -18,7 +18,7 @@ DROP TABLE IF EXISTS bl_auth_group_access;
 /*==============================================================*/
 CREATE TABLE bl_admin
 (
-  id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id INT(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   uuid VARCHAR(15) NOT NULL,
   account VARCHAR(20) NOT NULL COMMENT '帐号',
   password VARCHAR(32) NOT NULL COMMENT '密码',

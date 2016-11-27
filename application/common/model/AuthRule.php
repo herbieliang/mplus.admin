@@ -15,5 +15,10 @@ use think\Model;
  */
 class AuthRule extends Model
 {
+    protected $insert = ['status'];
+    protected $update = ['status'];
 
+    protected function setStatusAttr($value){
+        return $value === 'on' ? 1 : 0;
+    }
 }

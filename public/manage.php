@@ -26,5 +26,8 @@ define('CACHE_PATH', __DIR__.'/../runtime/cache/'.BIND_MODULE.'/');
 // 定义应用缓存目录
 define('TEMP_PATH', __DIR__.'/../runtime/cache/'.BIND_MODULE.'/');
 
+// 定义SESSION保存目录
+define('SESSION_PATH', __DIR__.'/../runtime/session/'.BIND_MODULE.'/');
+
 // 加载框架引导文件
 require (__DIR__ . '/../main/start.php');

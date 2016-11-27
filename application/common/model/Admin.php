@@ -8,13 +8,13 @@
 
 namespace app\common\model;
 use app\common\common;
-use think\Model;
+use think\model\Merge;
 
 /**
  * Class Admin
  * @package app\common\model
  */
-class Admin extends Model
+class Admin extends Merge
 {
     protected $insert = ['uuid', 'password', 'state'];
     protected $update = ['password', 'state'];
@@ -31,4 +31,25 @@ class Admin extends Model
     protected function setStateAttr($value){
         return $value === 'on' ? 1 : 0;
     }
+
+    public function getRoleAttr($value, $data){
+        $auth_group_access = AuthGroupAccess::get(['uid' => $data['id']]);
+        return $auth_group_access->group_id;
+    }
+
+    public function getRoleNameAttr($value, $data){
+        $auth_group_access = AuthGroupAccess::get(['uid' => $data['id']]);
+        $auth_group = AuthGroup::get(['id' => $auth_group_access->group_id]);
+        return $auth_group->title;
+    }
+
+    /**
+     * 定义关联模型
+     * @return \think\model\Relation
+     */
+    public function AuthGroupAccess()
+    {
+        return $this->hasOne('AuthGroupAccess', 'uid');
+    }
+
 }

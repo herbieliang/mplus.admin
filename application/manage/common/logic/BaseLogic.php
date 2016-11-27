@@ -34,5 +34,9 @@ class BaseLogic extends Model
         if (!defined('UPDATE_PASSWORD_FAILURE_TEXT')){define('UPDATE_PASSWORD_FAILURE_TEXT', '密码更新失败！');};
         if (!defined('ROLE_CANNOT_DELETE_TEXT')){define('ROLE_CANNOT_DELETE_TEXT', '内置角色禁止删除！');};
         if (!defined('AUTH_GROUP_CANNOT_DELETE_TEXT')){define('AUTH_GROUP_CANNOT_DELETE_TEXT', '内置权限组禁止删除！');};
+        if (!defined('SIGNIN_SUCCESS_TEXT')){define('SIGNIN_SUCCESS_TEXT', '登陆成功');};
+        if (!defined('SIGNIN_FAILURE_TEXT')){define('SIGNIN_FAILURE_TEXT', '用户名或密码不正确！');};
+        if (!defined('SIGNOUT_SUCCESS_TEXT')){define('SIGNOUT_SUCCESS_TEXT', '注销成功');};
+        if (!defined('SIGNOUT_FAILURE_TEXT')){define('SIGNOUT_FAILURE_TEXT', '注销失败！');};
     }
 }

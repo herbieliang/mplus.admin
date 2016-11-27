@@ -1,6 +1,6 @@
 <?php
 /**
- * 权限组逻辑层
+ * 角色逻辑层
  * User: Zachary Liang
  * Date: 16-11-26
  * Time: 下午3:27
@@ -29,7 +29,7 @@ class AuthGroup extends BaseLogic implements ILogic
     private $auth_rule_logic;
 
     /**
-     * @var \app\common\validate\AuthGroup
+     * @var common\validate\AuthGroup
      */
     protected $validate;
 
@@ -40,12 +40,12 @@ class AuthGroup extends BaseLogic implements ILogic
     {
         parent::initialize();
         $this->auth_group_model = Loader::model('AuthGroup');
-        $this->validate = Loader::validate('AuthGroup');
+        $this->validate = Loader::validate('AuthGroup', 'validate', null, 'manage\\common');
         $this->auth_rule_logic = Loader::model('AuthRule', 'logic', null, 'manage');
     }
 
     /**
-     * 获取权限组列表
+     * 获取角色列表
      * @return array
      */
     public function get_list()
@@ -64,18 +64,38 @@ class AuthGroup extends BaseLogic implements ILogic
     }
 
     /**
-     * 获取权限组模型
+     * 获取角色列表（不包含关闭的条目）
+     * @return null
+     */
+    public function get_list_without_closed(){
+        $map['status'] = 1;
+        $auth_groups = $this->auth_group_model->where($map)->select();
+        foreach ($auth_groups as $auth_group){
+            $rules = array();
+            $temp = explode(',', $auth_group['rules']);
+            foreach ($temp as $item){
+                $auth_rule = $this->auth_rule_logic->get_model($item);
+                $rules[] = $auth_rule['title'];
+            }
+            $auth_group['rules'] = $rules;
+        }
+        return $auth_groups ?: null;
+    }
+
+    /**
+     * 获取角色模型
      * @param $uuid
      * @return \app\common\model\AuthGroup
      */
     public function get_model($uuid)
     {
-        $auth_group = $this->auth_group_model->find($uuid);
+        $map['id'] = $uuid;
+        $auth_group = $this->auth_group_model->where($map)->find();
         return $auth_group ?: null;
     }
 
     /**
-     * 添加权限组
+     * 添加角色
      * @param $param
      * @return array
      */
@@ -93,7 +113,7 @@ class AuthGroup extends BaseLogic implements ILogic
     }
 
     /**
-     * 编辑权限组
+     * 编辑角色
      * @param $param
      * @param $uuid
      * @return array
@@ -111,7 +131,7 @@ class AuthGroup extends BaseLogic implements ILogic
     }
 
     /**
-     * 删除权限组
+     * 删除角色
      * @param $param
      * @return array
      */
@@ -128,6 +148,11 @@ class AuthGroup extends BaseLogic implements ILogic
             common::return_result('500', DELETE_FAILURE_TEXT, null);
     }
 
+    /**
+     * 批量删除角色
+     * @param $param
+     * @return array
+     */
     public function batch_del($param)
     {
         if (strpos($param['items'], '1,') !== false){

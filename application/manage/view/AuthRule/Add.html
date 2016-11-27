@@ -12,28 +12,27 @@
 
 <div id="main-wrap" class="animated fadeIn">
     <div class="main-title">
-        <h1>添加角色</h1>
+        <h1>添加权限节点</h1>
         <div class="toolbar">
             <!--此处可以添加标题右侧的工具按钮-->
         </div>
     </div>
     <hr>
     <div class="main-content">
-        <form class="layui-form" action="@{:url('Add')}" method="post" id="formAuthGroup">
+        <form class="layui-form" action="@{:url('Add')}" method="post" id="formAuthRule">
             <div class="layui-form-item">
-                <label class="layui-form-label">角色名称</label>
+                <label class="layui-form-label">唯一标识</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+                    <input type="text" name="name" lay-verify="required" placeholder="请输入权限节点唯一标识" autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux"></div>
+                <div class="layui-form-mid layui-word-aux">如果需要验证控制器方法，请按照“控制器-方法”的格式填写</div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">包含权限</label>
-                <div class="layui-input-block">
-                    @{volist name='data.rules' id='item'}
-                        <input type="checkbox" name="rules[@{$item.id}]" value="@{$item.id}" title="@{$item.title}">
-                    @{/volist}
+                <label class="layui-form-label">节点名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="title" lay-verify="required" placeholder="请输入权限节点名称，支持中文" autocomplete="off" class="layui-input">
                 </div>
+                <div class="layui-form-mid layui-word-aux"></div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">是否启用</label>
@@ -44,9 +43,9 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="formAuthGroup">立即提交</button>
+                    <button class="layui-btn" lay-submit lay-filter="formAuthRule">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    <button type="button" class="layui-btn layui-btn-primary do-action" data-type="doGoBack" data-href="@{:url('AuthGroup/Index')}">返回列表</button>
+                    <button type="button" class="layui-btn layui-btn-primary do-action" data-type="doGoBack" data-href="@{:url('AuthRule/Index')}">返回列表</button>
                 </div>
             </div>
         </form>
@@ -55,6 +54,6 @@
 
 <script src="@{$data.resource_path}/assets/plugin/layui/layui.js"></script>
 <script src="@{$data.resource_path}/assets/js/global.min.js"></script>
-<script src="@{$data.resource_path}/project/js/auth_group.min.js"></script>
+<script src="@{$data.resource_path}/project/js/auth_rule.min.js"></script>
 </body>
 </html>

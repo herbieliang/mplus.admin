@@ -20,6 +20,7 @@
     <hr>
     <div class="main-content">
         <form class="layui-form" action="@{:url('Edit', ['uuid'=>$data.admin.uuid])}" method="post" id="formAdmin">
+            <input type="hidden" name="id" value="@{$data.admin.id}">
             <div class="layui-form-item">
                 <label class="layui-form-label">管理员帐号</label>
                 <div class="layui-input-inline">
@@ -40,6 +41,21 @@
                     <input type="text" name="email" lay-verify="email" placeholder="请输入管理员邮箱" autocomplete="off" class="layui-input" value="@{$data.admin.email}">
                 </div>
                 <div class="layui-form-mid layui-word-aux">用于接收系统相关提醒邮件</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-inline">
+                    <select name="role" lay-verify="required">
+                        <option value="">请选择用户角色</option>
+                        @{volist name='data.auth_groups' id='item'}
+                            @{eq name='item.id' value='$data.admin.role'}
+                                <option value="@{$item.id}" selected>@{$item.title}</option>
+                            @{else/}
+                                <option value="@{$item.id}">@{$item.title}</option>
+                            @{/eq}
+                        @{/volist}
+                    </select>
+                </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">是否启用</label>

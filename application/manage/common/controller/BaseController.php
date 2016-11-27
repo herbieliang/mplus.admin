@@ -13,6 +13,7 @@ use think\Config;
 use think\Controller;
 use think\exception\HttpResponseException;
 use think\Response;
+use think\Session;
 
 /**
  * Class BaseController
@@ -26,14 +27,29 @@ class BaseController extends Controller
     {
         parent::_initialize();
         $this->data['resource_path'] = Config::get('RESOURCE_PATH');
+        $this->CheckLogin();
 //        $this->CheckPermission();
     }
 
+    /**
+     * 登陆验证
+     */
+    public function CheckLogin(){
+        if (!Session::get('admin') || Session::get('admin') === null){
+            $this->redirect(url('Login/Index'));
+        } else {
+            Session::set('admin', Session::get('admin'));
+        }
+    }
+
+    /**
+     * 验证权限
+     */
     protected function CheckPermission(){
         $controller = request()->controller();
         $action = request()->action();
         $pass_controller = array('Index');
-        $pass_action = array('Index', 'Home');
+        $pass_action = array('Index', 'Home', 'SignOut');
         $auth = new Auth();
         if (!in_array($controller, $pass_controller) && !in_array($action, $pass_action)){
             if(!$auth->check($controller . '-' . $action, 1)){

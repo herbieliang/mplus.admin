@@ -49,9 +49,20 @@
                 <div class="layui-form-mid layui-word-aux">用于接收系统相关提醒邮件</div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-inline">
+                    <select name="role" lay-verify="required">
+                        <option value="">请选择用户角色</option>
+                        @{volist name='data.auth_groups' id='item'}
+                            <option value="@{$item.id}">@{$item.title}</option>
+                        @{/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">是否启用</label>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="state" lay-skin="switch" class="switch-text-yes">
+                    <input type="checkbox" name="state" lay-skin="switch" class="switch-text-yes" checked>
                 </div>
                 <div class="layui-form-mid layui-word-aux">关闭状态下无法登陆后台系统</div>
             </div>

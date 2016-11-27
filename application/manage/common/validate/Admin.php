@@ -6,7 +6,7 @@
  * Time: 下午2:38
  */
 
-namespace app\common\validate;
+namespace app\manage\common\validate;
 use think\Validate;
 
 /**
@@ -19,15 +19,15 @@ class Admin extends Validate
         'account'               =>  'require|max:20|unique:admin',
         'password'              =>  'require',
         'nickname'              =>  'max:10',
-        'email'                 =>  'max:30',
+        'email'                 =>  'max:30'
     ];
 
     protected $message  =   [
-        'account.require'       =>  '请填写管理员帐号！',
-        'account.max'           =>  '管理员帐号最多不能超过20个字符！',
-        'account.unique'        =>  '管理员帐号已存在！',
-        'password.require'      =>  '请填写管理员密码！',
-        'nickname.max'          =>  '管理员昵称最多不能超过10个字符！',
+        'account.require'       =>  '请填写用户帐号！',
+        'account.max'           =>  '用户帐号最多不能超过20个字符！',
+        'account.unique'        =>  '用户帐号已存在！',
+        'password.require'      =>  '请填写用户密码！',
+        'nickname.max'          =>  '用户昵称最多不能超过10个字符！',
         'email'                 =>  '邮箱格式错误！',
     ];
 

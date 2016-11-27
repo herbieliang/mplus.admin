@@ -12,7 +12,7 @@
 
 <div id="main-wrap" class="animated fadeIn">
     <div class="main-title">
-        <h1>编辑用户</h1>
+        <h1>编辑角色</h1>
         <div class="toolbar">
             <!--此处可以添加标题右侧的工具按钮-->
         </div>
@@ -21,9 +21,9 @@
     <div class="main-content">
         <form class="layui-form"  action="@{:url('Edit', ['uuid'=>$data.auth_group.id])}" method="post" id="formAuthGroup">
             <div class="layui-form-item">
-                <label class="layui-form-label">权限组名称</label>
+                <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" lay-verify="required" placeholder="请输入权限组名称" autocomplete="off" class="layui-input" value="@{$data.auth_group.title}" readonly>
+                    <input type="text" name="title" lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input" value="@{$data.auth_group.title}" readonly>
                 </div>
                 <div class="layui-form-mid layui-word-aux">名称不支持修改</div>
             </div>

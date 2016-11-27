@@ -14,5 +14,6 @@ return [
     // 静态资源路径
     'RESOURCE_PATH'                 =>  '/static/manage',
 
-    'dispatch_error_tmpl'    => '../public/static/manage/error.tpl',
+    'dispatch_error_tmpl'           => '../public/static/manage/error.tpl',
+
 ];

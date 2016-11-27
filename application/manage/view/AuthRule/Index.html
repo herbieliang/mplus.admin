@@ -13,13 +13,13 @@
 
 <div id="main-wrap" class="animated fadeIn">
     <div class="main-title">
-        <h1>角色管理</h1>
+        <h1>权限节点管理</h1>
         <div class="toolbar">
             <button id="batch_delete_btn" class="layui-btn layui-btn-danger layui-btn-small do-action" style="display: none;" data-type="doBatchDelete" data-href="@{:url('Delete', ['type'=>'batch'])}">
                 <i class="layui-icon">&#xe640;</i> 批量删除
             </button>
             <button class="layui-btn layui-btn-small do-action" data-type="doAdd" data-href="@{:url('Add')}">
-                <i class="layui-icon">&#xe608;</i> 添加角色
+                <i class="layui-icon">&#xe608;</i> 添加权限节点
             </button>
         </div>
     </div>
@@ -30,19 +30,23 @@
                 <tr>
                     <th width="2%"><input type="checkbox" class="icheck"></th>
                     <th width="8%">编号</th>
-                    <th width="15%">角色名称</th>
-                    <th width="57%">包含权限</th>
+                    <th width="20%">唯一标识</th>
+                    <th width="20%">名称</th>
+                    <th width="16%">添加时间</th>
+                    <th width="16%">更新时间</th>
                     <th width="8%">状态</th>
                     <th width="10%">操作</th>
                 </tr>
             </thead>
             <tbody>
-            @{volist name='data.auth_groups' id='item'}
+            @{volist name='data.auth_rules' id='item'}
                 <tr>
                     <td><input type="checkbox" name="uuid" class="icheck" data-value="@{$item.id}"></td>
                     <td>@{$item.id}</td>
+                    <td>@{$item.name}</td>
                     <td>@{$item.title}</td>
-                    <td>@{$item.rules}</td>
+                    <td>@{$item.create_time}</td>
+                    <td>@{$item.update_time}</td>
                     <td>
                         @{eq name='item.status' value='1'}
                         <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 18px; color: green;"></i>
@@ -53,9 +57,7 @@
                     <td>
                         <button class="layui-btn layui-btn-normal layui-btn-mini do-action" data-type="doEdit" data-href="@{:url('Edit', ['uuid'=>$item.id])}">编辑</button>
 
-                        @{neq name='item.id' value='1'}
-                            <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.id}">删除</button>
-                        @{/neq}
+                        <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.id}">删除</button>
                     </td>
                 </tr>
             @{/volist}
@@ -66,6 +68,6 @@
 
 <script src="@{$data.resource_path}/assets/plugin/layui/layui.js"></script>
 <script src="@{$data.resource_path}/assets/js/global.min.js"></script>
-<script src="@{$data.resource_path}/project/js/auth_group.min.js"></script>
+<script src="@{$data.resource_path}/project/js/auth_rule.min.js"></script>
 </body>
 </html>
