@@ -38,5 +38,7 @@ class BaseLogic extends Model
         if (!defined('SIGNIN_FAILURE_TEXT')){define('SIGNIN_FAILURE_TEXT', '用户名或密码不正确！');};
         if (!defined('SIGNOUT_SUCCESS_TEXT')){define('SIGNOUT_SUCCESS_TEXT', '注销成功');};
         if (!defined('SIGNOUT_FAILURE_TEXT')){define('SIGNOUT_FAILURE_TEXT', '注销失败！');};
+        if (!defined('AVATAR_UPDATE_SUCCESS_TEXT')){define('AVATAR_UPDATE_SUCCESS_TEXT', '头像上传成功！');};
+        if (!defined('AVATAR_UPDATE_FAILED_TEXT')){define('AVATAR_UPDATE_FAILED_TEXT', '头像上传失败！');};
     }
 }

@@ -21,25 +21,22 @@ class Login extends BaseLogic
     private $admin_model;
 
     /**
-     * @var \app\manage\common\validate\Login
+     * @var \app\manage\validate\Login
      */
     protected $validate;
 
     public function initialize()
     {
         parent::initialize();
-        $this->admin_model = Loader::model('Admin');
-        $this->validate = Loader::validate('Login', 'validate', null, 'manage\\common');
+        $this->admin_model = model('Admin');
+        $this->validate = validate('Login', 'validate');
     }
 
     public function sign_in($param){
         if (!$this->validate->check($param)){
             return common::return_result('500', $this->validate->getError(), null);
         } else {
-            $map['account'] = $param['account'];
-            $map['password'] = md5(md5($param['password']));
-            $map['state'] = 1;
-            $result = $this->admin_model->where($map)->find();
+            $result = $this->admin_model->login_check($param);
             if ($result){
                 Session::set('admin', $result);
                 return common::return_result('200', SIGNIN_SUCCESS_TEXT, url('Index/Index'));

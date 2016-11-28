@@ -10,7 +10,6 @@ namespace app\manage\logic;
 use app\manage\common;
 use app\manage\common\logic\BaseLogic;
 use app\manage\common\logic\ILogic;
-use think\Loader;
 
 /**
  * Class AuthRule
@@ -24,7 +23,7 @@ class AuthRule extends BaseLogic implements ILogic
     private $auth_rule_model;
 
     /**
-     * @var common\validate\AuthRule
+     * @var \app\manage\validate\AuthRule
      */
     protected $validate;
 
@@ -34,8 +33,8 @@ class AuthRule extends BaseLogic implements ILogic
     public function initialize()
     {
         parent::initialize();
-        $this->auth_rule_model = Loader::model('AuthRule');
-        $this->validate = Loader::validate('AuthRule', 'validate', null, 'manage\\common');
+        $this->auth_rule_model = model('AuthRule');
+        $this->validate = validate('AuthRule', 'validate');
     }
 
     /**

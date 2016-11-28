@@ -10,7 +10,6 @@ namespace app\manage\logic;
 use app\manage\common;
 use app\manage\common\logic\BaseLogic;
 use app\manage\common\logic\ILogic;
-use think\Loader;
 
 /**
  * Class Admin
@@ -24,12 +23,7 @@ class Admin extends BaseLogic implements ILogic
     private $admin_model;
 
     /**
-     * @var \app\common\model\AuthGroupAccess
-     */
-    private $auth_group_access_model;
-
-    /**
-     * @var common\validate\Admin
+     * @var \app\manage\validate\Admin
      */
     protected $validate;
 
@@ -39,9 +33,8 @@ class Admin extends BaseLogic implements ILogic
     public function initialize()
     {
         parent::initialize();
-        $this->admin_model = Loader::model('Admin');
-        $this->auth_group_access_model = Loader::model('AuthGroupAccess');
-        $this->validate = Loader::validate('Admin', 'validate', null, 'manage\\common');
+        $this->admin_model = model('Admin');
+        $this->validate = validate('Admin', 'validate');
     }
 
     /**
@@ -76,8 +69,7 @@ class Admin extends BaseLogic implements ILogic
         if (!$this->validate->scene('add')->check($param)){
             return common::return_result('500', $this->validate->getError(), null);
         } else {
-            $result = $this->admin_model->save($param);
-            $this->admin_model->AuthGroupAccess()->save(['group_id' => $param['role']]);
+            $result = $this->admin_model->add($param);
             return $result ?
                 common::return_result('200', ADD_SUCCESS_TEXT, url('Admin/Index')) :
                 common::return_result('500', ADD_FAILURE_TEXT, null);
@@ -96,9 +88,7 @@ class Admin extends BaseLogic implements ILogic
         if (!$this->validate->scene('edit')->check($param)){
             return common::return_result('500', $this->validate->getError(), null);
         } else {
-            $result = $this->admin_model->save($param, ['uuid' => $uuid]);
-            $admin = \app\common\model\Admin::find($result);
-            $admin->AuthGroupAccess->save(['group_id' => $param['role']]);
+            $result = $this->admin_model->edit($param);
             return $result ?
                 common::return_result('200', EDIT_SUCCESS_TEXT, url('Admin/Index')) :
                 common::return_result('500', EDIT_FAILURE_TEXT, null);
@@ -112,12 +102,11 @@ class Admin extends BaseLogic implements ILogic
      */
     public function del($param)
     {
-        if ($param['item'] === '000000000000000'){
+        if ($param['item'] === '1'){
             return common::return_result('500', ADMIN_CANNOT_DELETE_TEXT, null);
         }
 
-        $map['uuid'] = $param['item'];
-        $result = $this->admin_model->where($map)->delete();
+        $result = $this->admin_model->del($param);
         return $result ?
             common::return_result('200', DELETE_SUCCESS_TEXT, null) :
             common::return_result('500', DELETE_FAILURE_TEXT, null);
@@ -130,12 +119,11 @@ class Admin extends BaseLogic implements ILogic
      */
     public function batch_del($param)
     {
-        if (strpos($param['items'], '000000000000000,') !== false){
+        if (strpos($param['items'], '1,') !== false){
             return common::return_result('500', ADMIN_CANNOT_DELETE_TEXT, null);
         }
 
-        $map['uuid'] = array('IN', rtrim($param['items'], ','));
-        $result = $this->admin_model->where($map)->delete();
+        $result = $this->admin_model->batch_del($param);
         return $result ?
             common::return_result('200', BATCH_DELETE_SUCCESS_TEXT, null) :
             common::return_result('500', BATCH_DELETE_FAILURE_TEXT, null);
@@ -151,12 +139,9 @@ class Admin extends BaseLogic implements ILogic
             return common::return_result('500', $this->validate->getError(), null);
         }
 
-        $data['password'] = $param['password'];
-        $result = $this->admin_model->isUpdate(true)->save($data, ['uuid' => $param['item']]);
+        $result = $this->admin_model->update_password($param);
         return $result ?
             common::return_result('200', UPDATE_PASSWORD_SUCCESS_TEXT, null) :
             common::return_result('500', UPDATE_PASSWORD_FAILURE_TEXT, null);
     }
-
-
 }

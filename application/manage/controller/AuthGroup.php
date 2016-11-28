@@ -8,7 +8,6 @@
 
 namespace app\manage\controller;
 use app\manage\common\controller\BaseController;
-use think\Loader;
 
 /**
  * Class AuthGroup
@@ -32,8 +31,8 @@ class AuthGroup extends BaseController
     public function _initialize()
     {
         parent::_initialize();
-        $this->auth_group_logic = Loader::model('AuthGroup', 'logic', null, 'manage');
-        $this->auth_rule_logic = Loader::model('AuthRule', 'logic', null, 'manage');
+        $this->auth_group_logic = model('AuthGroup', 'logic');
+        $this->auth_rule_logic = model('AuthRule', 'logic');
         $this->data['rules'] = $this->auth_rule_logic->get_list_without_closed();
     }
 
@@ -52,8 +51,8 @@ class AuthGroup extends BaseController
      * @return mixed|\think\response\Json
      */
     public function Add(){
-        if ($_POST){
-            return json($this->auth_group_logic->add($_POST));
+        if (request()->isPost()){
+            return json($this->auth_group_logic->add(input('post.')));
         } else {
             $this->assign('data', $this->data);
             return $this->fetch('AuthGroup' . DS . 'Add');
@@ -66,8 +65,8 @@ class AuthGroup extends BaseController
      * @return mixed|\think\response\Json
      */
     public function Edit($uuid){
-        if ($_POST){
-            return json($this->auth_group_logic->edit($_POST, $uuid));
+        if (request()->isPost()){
+            return json($this->auth_group_logic->edit(input('post.'), $uuid));
         } else {
             $this->data['auth_group'] = $this->auth_group_logic->get_model($uuid);
             $this->assign('data', $this->data);
@@ -81,11 +80,11 @@ class AuthGroup extends BaseController
      * @return \think\response\Json
      */
     public function Delete($type = ''){
-        if ($_POST){
+        if (request()->isPost()){
             if ($type === 'batch'){
-                return json($this->auth_group_logic->batch_del($_POST));
+                return json($this->auth_group_logic->batch_del(input('post.')));
             } else {
-                return json($this->auth_group_logic->del($_POST));
+                return json($this->auth_group_logic->del(input('post.')));
             }
         }
     }

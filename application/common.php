@@ -23,4 +23,13 @@ class common{
         return uniqid(mt_rand(100, 999), false);
     }
     #endregion
+
+    /**
+     * 加密密码
+     * @param $str
+     * @return string
+     */
+    public static function encrypt_password($str){
+        return md5(md5($str));
+    }
 }

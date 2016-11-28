@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="@{$data.resource_path}/assets/plugin/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="@{$data.resource_path}/assets/css/global.min.css">
     <link rel="stylesheet" href="@{$data.resource_path}/assets/css/index.min.css">
+    <link rel="icon" type="image/png" href="@{$data.resource_path}/project/image/favicon.png">
 </head>
 <body>
 
@@ -15,16 +16,20 @@
     <div class="nav">
         <ul class="layui-nav layui-nav-tree layui-nav-side">
             <div class="user-info">
-                <img src="@{$data.resource_path}/assets/image/avater.png">
+                @{eq name='Think.session.admin.avatar' value=''}
+                    <img src="@{$data.resource_path}/assets/image/avater.png" id="avatar1">
+                @{else/}
+                    <img src="@{$Think.session.admin.avatar}" id="avatar2">
+                @{/eq}
                 <div>
                     <p>
-                        admin
-                        <a class="tab-open" href="javascript:;" data-href="@{:url('Index/Home')}" data-name="个人设置">
+                        @{$Think.session.admin.nickname}
+                        <a class="tab-open" href="javascript:;" data-href="@{:url('Profile/Index')}" data-name="个人设置">
                             <i class="layui-icon">&#xe642;</i>
                             <span class="layui-hide">个人设置</span>
                         </a>
                     </p>
-                    <p>超级管理员</p>
+                    <p>@{$Think.session.admin.rolename}</p>
                 </div>
                 <div class="sign-out" data-type="signOut" data-href="@{:url('Index/SignOut')}">
                     <a href="javascript:;"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
@@ -51,11 +56,11 @@
             </div>
             <div class="top-nav">
                 <span class="layui-breadcrumb" lay-separator=" ">
-                  <a href="javascript:;">
-                      <i class="fa fa-eraser" aria-hidden="true"></i> 清除缓存
-                  </a>
-                  <a href="javascript:;" target="_blank">
-                      <i class="fa fa-eye" aria-hidden="true"></i> 预览网站
+                  <!--<a href="javascript:;">-->
+                      <!--<i class="fa fa-eraser" aria-hidden="true"></i> 清除缓存-->
+                  <!--</a>-->
+                  <a href="javascript:;" class="tab-open" data-href="@{:url('Profile/Index')}" data-name="个人设置">
+                      <i class="fa fa-user" aria-hidden="true"></i> 个人设置
                   </a>
                 </span>
             </div>

@@ -8,7 +8,6 @@
 
 namespace app\manage\controller;
 use think\Controller;
-use think\Loader;
 
 /**
  * Class Login
@@ -27,7 +26,7 @@ class Login extends Controller
     public function _initialize()
     {
         parent::_initialize();
-        $this->login_logic = Loader::model('Login', 'logic', null, 'manage');
+        $this->login_logic = model('Login', 'logic');
     }
 
     public function Index(){

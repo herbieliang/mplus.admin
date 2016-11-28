@@ -26,4 +26,22 @@ class AuthGroup extends Model
     protected function setStatusAttr($value){
         return $value === 'on' ? 1 : 0;
     }
+
+    /**
+     * 获取权限文本内容
+     * @param $value
+     * @param $data
+     * @return string
+     */
+    public function getRulesNameAttr($value, $data){
+        $result = db('auth_rule')
+            ->where('id', 'IN', $data['rules'])
+            ->field('title')
+            ->select();
+        $rules = array();
+        foreach ($result as $item){
+            $rules[] = $item['title'];
+        }
+        return implode('、', $rules);
+    }
 }

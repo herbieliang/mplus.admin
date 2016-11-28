@@ -12,6 +12,8 @@ DROP TABLE IF EXISTS bl_auth_group;
 
 DROP TABLE IF EXISTS bl_auth_group_access;
 
+DROP TABLE IF EXISTS bl_admin_profile;
+
 /*==============================================================*/
 /* Table: bl_admin                                              */
 /* 管理员表                                                      */
@@ -65,6 +67,18 @@ CREATE TABLE bl_auth_group (
 CREATE TABLE bl_auth_group_access (
   uid MEDIUMINT(8) UNSIGNED KEY NOT NULL COMMENT '用户id',
   group_id MEDIUMINT(8) UNSIGNED NOT NULL COMMENT '用户组id',
+  create_time DATETIME COMMENT '创建时间',
+  update_time DATETIME COMMENT '最近修改时间'
+);
+
+/*==============================================================*/
+/* Table: bl_admin_profile                                      */
+/* 个人资料表                                                    */
+/*==============================================================*/
+CREATE TABLE bl_admin_profile
+(
+  uid INT(11) UNSIGNED NOT NULL COMMENT '用户id',
+  avatar VARCHAR(50) COMMENT '头像',
   create_time DATETIME COMMENT '创建时间',
   update_time DATETIME COMMENT '最近修改时间'
 );

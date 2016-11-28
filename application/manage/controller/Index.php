@@ -9,7 +9,7 @@
 namespace app\manage\controller;
 use app\manage\common\controller\BaseController;
 use app\manage\logic\Login;
-use think\Loader;
+use think\Session;
 
 /**
  * Class Index
@@ -28,7 +28,7 @@ class Index extends BaseController
     public function _initialize()
     {
         parent::_initialize();
-        $this->login_logic = Loader::model('Login', 'logic', null, 'manage');
+        $this->login_logic = model('Login', 'logic');
     }
 
     public function Index(){

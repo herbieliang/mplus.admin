@@ -26,9 +26,14 @@ INSERT INTO bl_auth_rule (name, title, type, relation, status, create_time, upda
 /*==============================================================*/
 /* Table: bl_auth_group                                         */
 /*==============================================================*/
-INSERT INTO bl_auth_group (title, rules, status, create_time, update_time) VALUES ('超级管理员', '1,2,3,4', 1, now(), now());
+INSERT INTO bl_auth_group (title, rules, status, create_time, update_time) VALUES ('超级管理员', '1,2,3,4,5,6,7,8,9,10', 1, now(), now());
 
 /*==============================================================*/
 /* Table: bl_auth_group_accress                                 */
 /*==============================================================*/
 INSERT INTO bl_auth_group_access (uid, group_id, create_time, update_time) VALUES (1, 1, now(), now());
+
+/*==============================================================*/
+/* Table: bl_auth_group_accress                                 */
+/*==============================================================*/
+INSERT INTO bl_admin_profile (uid, avatar, create_time, update_time) VALUES (1, null, now(), now());

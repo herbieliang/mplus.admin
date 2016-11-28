@@ -6,7 +6,7 @@
  * Time: 下午2:18
  */
 
-namespace app\manage\common\validate;
+namespace app\manage\validate;
 use think\Validate;
 
 class AuthGroup extends Validate

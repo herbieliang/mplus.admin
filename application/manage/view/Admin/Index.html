@@ -42,7 +42,7 @@
             <tbody>
             @{volist name='data.admins' id='item'}
                 <tr>
-                    <td><input type="checkbox" name="uuid" class="icheck" data-value="@{$item.uuid}"></td>
+                    <td><input type="checkbox" name="uuid" class="icheck" data-value="@{$item.id}"></td>
                     <td>@{$item.id}</td>
                     <td>@{$item.account}</td>
                     <td>
@@ -62,7 +62,7 @@
                         <button class="layui-btn layui-btn-normal layui-btn-mini do-action" data-type="doEdit" data-href="@{:url('Edit', ['uuid'=>$item.uuid])}">编辑</button>
 
                         @{neq name='item.uuid' value='000000000000000'}
-                            <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.uuid}">删除</button>
+                            <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.id}">删除</button>
                         @{/neq}
                     </td>
                 </tr>

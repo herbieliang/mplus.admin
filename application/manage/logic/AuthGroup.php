@@ -10,6 +10,7 @@ namespace app\manage\logic;
 use app\manage\common;
 use app\manage\common\logic\BaseLogic;
 use app\manage\common\logic\ILogic;
+use app\manage\validate\AuthRule;
 use think\Loader;
 
 /**
@@ -29,7 +30,7 @@ class AuthGroup extends BaseLogic implements ILogic
     private $auth_rule_logic;
 
     /**
-     * @var common\validate\AuthGroup
+     * @var \app\manage\validate\AuthGroup
      */
     protected $validate;
 
@@ -39,9 +40,9 @@ class AuthGroup extends BaseLogic implements ILogic
     public function initialize()
     {
         parent::initialize();
-        $this->auth_group_model = Loader::model('AuthGroup');
-        $this->validate = Loader::validate('AuthGroup', 'validate', null, 'manage\\common');
-        $this->auth_rule_logic = Loader::model('AuthRule', 'logic', null, 'manage');
+        $this->auth_group_model = model('AuthGroup');
+        $this->validate = validate('AuthGroup', 'validate');
+        $this->auth_rule_logic = model('AuthRule', 'logic');
     }
 
     /**
@@ -51,15 +52,6 @@ class AuthGroup extends BaseLogic implements ILogic
     public function get_list()
     {
         $auth_groups = $this->auth_group_model->order('create_time', 'desc')->select();
-        foreach ($auth_groups as $auth_group){
-            $rules = array();
-            $temp = explode(',', $auth_group['rules']);
-            foreach ($temp as $item){
-                $auth_rule = $this->auth_rule_logic->get_model($item);
-                $rules[] = $auth_rule['title'];
-            }
-            $auth_group['rules'] = $rules;
-        }
         return $auth_groups ?: null;
     }
 
@@ -70,15 +62,6 @@ class AuthGroup extends BaseLogic implements ILogic
     public function get_list_without_closed(){
         $map['status'] = 1;
         $auth_groups = $this->auth_group_model->where($map)->select();
-        foreach ($auth_groups as $auth_group){
-            $rules = array();
-            $temp = explode(',', $auth_group['rules']);
-            foreach ($temp as $item){
-                $auth_rule = $this->auth_rule_logic->get_model($item);
-                $rules[] = $auth_rule['title'];
-            }
-            $auth_group['rules'] = $rules;
-        }
         return $auth_groups ?: null;
     }
 

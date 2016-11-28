@@ -8,7 +8,6 @@
 
 namespace app\manage\controller;
 use app\manage\common\controller\BaseController;
-use think\Loader;
 
 /**
  * Class AuthRule
@@ -27,7 +26,7 @@ class AuthRule extends BaseController
     public function _initialize()
     {
         parent::_initialize();
-        $this->auth_rule_logic = Loader::model('AuthRule', 'logic', null, 'manage');
+        $this->auth_rule_logic = model('AuthRule', 'logic');
     }
 
     /**
@@ -45,8 +44,8 @@ class AuthRule extends BaseController
      * @return mixed|\think\response\Json
      */
     public function Add(){
-        if ($_POST){
-            return json($this->auth_rule_logic->add($_POST));
+        if (request()->isPost()){
+            return json($this->auth_rule_logic->add(input('post.')));
         } else {
             $this->assign('data', $this->data);
             return $this->fetch('AuthRule' . DS . 'Add');
@@ -59,8 +58,8 @@ class AuthRule extends BaseController
      * @return mixed|\think\response\Json
      */
     public function Edit($uuid){
-        if ($_POST){
-            return json($this->auth_rule_logic->edit($_POST, $uuid));
+        if (request()->isPost()){
+            return json($this->auth_rule_logic->edit(input('post.'), $uuid));
         } else {
             $this->data['auth_rule'] = $this->auth_rule_logic->get_model($uuid);
             $this->assign('data', $this->data);
@@ -74,11 +73,11 @@ class AuthRule extends BaseController
      * @return \think\response\Json
      */
     public function Delete($type = ''){
-        if ($_POST){
+        if (request()->isPost()){
             if ($type === 'batch'){
-                return json($this->auth_rule_logic->batch_del($_POST));
+                return json($this->auth_rule_logic->batch_del(input('post.')));
             } else {
-                return json($this->auth_rule_logic->del($_POST));
+                return json($this->auth_rule_logic->del(input('post.')));
             }
         }
     }

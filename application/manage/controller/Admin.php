@@ -9,7 +9,6 @@
 namespace app\manage\controller;
 use app\manage\common\controller\BaseController;
 use app\manage\logic\AuthGroup;
-use think\Loader;
 
 /**
  * Class Admin
@@ -33,8 +32,8 @@ class Admin extends BaseController
     protected function _initialize()
     {
         parent::_initialize();
-        $this->admin_logic = Loader::model('Admin', 'logic', null, 'manage');
-        $this->auth_group_logic = Loader::model('AuthGroup', 'logic', null, 'manage');
+        $this->admin_logic = model('Admin', 'logic');
+        $this->auth_group_logic = model('AuthGroup', 'logic');
         $this->data['auth_groups'] = $this->auth_group_logic->get_list_without_closed();
     }
 
@@ -53,8 +52,8 @@ class Admin extends BaseController
      * @return mixed|\think\response\Json
      */
     public function Add(){
-        if ($_POST){
-            return json($this->admin_logic->add($_POST));
+        if (request()->isPost()){
+            return json($this->admin_logic->add(input('post.')));
         } else {
             $this->assign('data', $this->data);
             return $this->fetch('Admin' . DS . 'Add');
@@ -67,8 +66,8 @@ class Admin extends BaseController
      * @return mixed|\think\response\Json
      */
     public function Edit($uuid){
-        if ($_POST){
-            return json($this->admin_logic->edit($_POST, $uuid));
+        if (request()->isPost()){
+            return json($this->admin_logic->edit(input('post.'), $uuid));
         } else {
             $this->data['admin'] = $this->admin_logic->get_model($uuid);
             $this->assign('data', $this->data);
@@ -82,11 +81,11 @@ class Admin extends BaseController
      * @return \think\response\Json
      */
     public function Delete($type = ''){
-        if ($_POST){
+        if (request()->isPost()){
             if ($type === 'batch'){
-                return json($this->admin_logic->batch_del($_POST));
+                return json($this->admin_logic->batch_del(input('post.')));
             } else {
-                return json($this->admin_logic->del($_POST));
+                return json($this->admin_logic->del(input('post.')));
             }
         }
     }
@@ -96,8 +95,8 @@ class Admin extends BaseController
      * @return \think\response\Json
      */
     public function UpdatePassword(){
-        if ($_POST){
-            return json($this->admin_logic->update_password($_POST));
+        if (request()->isPost()){
+            return json($this->admin_logic->update_password(input('post.')));
         }
     }
 }

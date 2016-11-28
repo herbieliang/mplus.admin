@@ -28,7 +28,7 @@ class BaseController extends Controller
         parent::_initialize();
         $this->data['resource_path'] = Config::get('RESOURCE_PATH');
         $this->CheckLogin();
-//        $this->CheckPermission();
+        $this->CheckPermission();
     }
 
     /**
@@ -48,12 +48,12 @@ class BaseController extends Controller
     protected function CheckPermission(){
         $controller = request()->controller();
         $action = request()->action();
-        $pass_controller = array('Index');
+        $pass_controller = array('Index', 'Profile');
         $pass_action = array('Index', 'Home', 'SignOut');
         $auth = new Auth();
         if (!in_array($controller, $pass_controller) && !in_array($action, $pass_action)){
-            if(!$auth->check($controller . '-' . $action, 1)){
-                if ($_POST){
+            if(!$auth->check($controller . '-' . $action, Session::get('admin.id'))){
+                if (request()->isPost()){
                     $result = common::return_result('500', '你没有此操作的权限！', null);
                     $response = Response::create($result, 'json')->header(request()->header());
                     throw new HttpResponseException($response);
