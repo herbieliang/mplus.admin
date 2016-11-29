@@ -43,7 +43,7 @@ class Admin extends BaseLogic implements ILogic
      */
     public function get_list()
     {
-        $admins = $this->admin_model->order('create_time', 'desc')->select();
+        $admins = $this->admin_model->get_list();
         return $admins ?: null;
     }
 
@@ -54,8 +54,7 @@ class Admin extends BaseLogic implements ILogic
      */
     public function get_model($uuid)
     {
-        $map['uuid'] = $uuid;
-        $admin = $this->admin_model->where($map)->find();
+        $admin = $this->admin_model->get_model($uuid);
         return $admin ?: null;
     }
 

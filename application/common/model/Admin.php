@@ -48,12 +48,48 @@ class Admin extends Model
     }
 
     /**
+     * 获取管理员列表
+     * @return mixed
+     */
+    public function get_list(){
+        $result = db('admin')
+            ->alias('admin')
+            ->join('__AUTH_GROUP_ACCESS__ access', 'access.uid = admin.id')
+            ->join('__AUTH_GROUP__ group', 'group.id = access.group_id')
+            ->join('__ADMIN_PROFILE__ profile', 'profile.uid = admin.id')
+            ->order('admin.id', 'desc')
+            ->field('admin.*, group.title as role_name, profile.*')
+            ->select();
+        return $result;
+    }
+
+    /**
+     * 获取管理员模型
+     * @param $uuid
+     * @return mixed
+     */
+    public function get_model($uuid){
+        $result = db('admin')
+            ->alias('admin')
+            ->where('uuid', $uuid)
+            ->join('__AUTH_GROUP_ACCESS__ access', 'access.uid = admin.id')
+            ->join('__ADMIN_PROFILE__ profile', 'profile.uid = admin.id')
+            ->field('admin.*, access.group_id as role, profile.*')
+            ->find();
+        return $result;
+    }
+
+    /**
      * 添加操作，使用事务添加多个表
      * @param $param
      * @return bool
      */
     public function add($param){
+        $nickname = $param['nickname'];
+        $email = $param['email'];
         $role_id = $param['role'];
+        unset($param['nickname']);
+        unset($param['email']);
         unset($param['role']);
         $param['uuid'] = common::get_uniqueness_id();
         $param['password'] = md5(md5($param['password']));
@@ -74,6 +110,8 @@ class Admin extends Model
             db('admin_profile')
                 ->insert([
                     'uid'=>$id,
+                    'nickname'=>$nickname,
+                    'email'=>$email,
                     'create_time' => date($this->dateFormat, time()),
                     'update_time' => date($this->dateFormat, time())
                 ]);
@@ -91,7 +129,11 @@ class Admin extends Model
      * @return bool
      */
     public function edit($param){
+        $nickname = $param['nickname'];
+        $email = $param['email'];
         $role_id = $param['role'];
+        unset($param['nickname']);
+        unset($param['email']);
         unset($param['role']);
         $param['state'] = isset($param['state']) ? 1 : 0;
         $param['update_time'] = date($this->dateFormat, time());
@@ -104,6 +146,13 @@ class Admin extends Model
                 ->where('uid', $param['id'])
                 ->update([
                     'group_id'=>$role_id,
+                    'update_time' => date($this->dateFormat, time())
+                ]);
+            db('admin_profile')
+                ->where('uid', $param['id'])
+                ->update([
+                    'nickname'=>$nickname,
+                    'email'=>$email,
                     'update_time' => date($this->dateFormat, time())
                 ]);
             Db::commit();
@@ -191,7 +240,7 @@ class Admin extends Model
             ->join('__AUTH_GROUP_ACCESS__ access', 'access.uid = admin.id')
             ->join('__AUTH_GROUP__ group', 'group.id = access.group_id')
             ->join('__ADMIN_PROFILE__ profile', 'profile.uid = admin.id')
-            ->field('admin.*, group.title as rolename, profile.avatar as avatar')
+            ->field('admin.*, group.title as rolename, profile.*')
             ->find();
         return $result;
     }

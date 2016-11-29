@@ -24,8 +24,6 @@ CREATE TABLE bl_admin
   uuid VARCHAR(15) NOT NULL,
   account VARCHAR(20) NOT NULL COMMENT '帐号',
   password VARCHAR(32) NOT NULL COMMENT '密码',
-  nickname VARCHAR(10) COMMENT '昵称',
-  email VARCHAR(30) COMMENT '邮箱',
   state TINYINT(1) NOT NULL COMMENT '状态：0-禁用  1-启用',
   create_time DATETIME COMMENT '创建时间',
   update_time DATETIME COMMENT '最近修改时间'
@@ -79,6 +77,8 @@ CREATE TABLE bl_admin_profile
 (
   uid INT(11) UNSIGNED NOT NULL COMMENT '用户id',
   avatar VARCHAR(50) COMMENT '头像',
+  nickname VARCHAR(10) COMMENT '昵称',
+  email VARCHAR(30) COMMENT '邮箱',
   create_time DATETIME COMMENT '创建时间',
   update_time DATETIME COMMENT '最近修改时间'
 );

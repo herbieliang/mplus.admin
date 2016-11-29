@@ -40,5 +40,7 @@ class BaseLogic extends Model
         if (!defined('SIGNOUT_FAILURE_TEXT')){define('SIGNOUT_FAILURE_TEXT', '注销失败！');};
         if (!defined('AVATAR_UPDATE_SUCCESS_TEXT')){define('AVATAR_UPDATE_SUCCESS_TEXT', '头像上传成功！');};
         if (!defined('AVATAR_UPDATE_FAILED_TEXT')){define('AVATAR_UPDATE_FAILED_TEXT', '头像上传失败！');};
+        if (!defined('PROFILE_UPDATE_SUCCESS_TEXT')){define('PROFILE_UPDATE_SUCCESS_TEXT', '个人资料更新成功！');};
+        if (!defined('PROFILE_UPDATE_FAILED_TEXT')){define('PROFILE_UPDATE_FAILED_TEXT', '个人资料更新失败！');};
     }
 }

@@ -7,7 +7,7 @@
 /*==============================================================*/
 /* Table: bl_admin                                              */
 /*==============================================================*/
-INSERT INTO bl_admin (uuid, account, password, nickname, email, state, create_time, update_time) VALUES ('000000000000000', 'bolong', '5ba3b684e0a010470e26936fa866e94e', '博龍工作室', 'admin@bolong.com', 1, now(), now());
+INSERT INTO bl_admin (uuid, account, password, state, create_time, update_time) VALUES ('000000000000000', 'bolong', '5ba3b684e0a010470e26936fa866e94e', 1, now(), now());
 
 /*==============================================================*/
 /* Table: bl_auth_rule                                          */
@@ -36,4 +36,4 @@ INSERT INTO bl_auth_group_access (uid, group_id, create_time, update_time) VALUE
 /*==============================================================*/
 /* Table: bl_auth_group_accress                                 */
 /*==============================================================*/
-INSERT INTO bl_admin_profile (uid, avatar, create_time, update_time) VALUES (1, null, now(), now());
+INSERT INTO bl_admin_profile (uid, avatar, nickname, email, create_time, update_time) VALUES (1, null, '博龍工作室', 'mail@lianghongbo.com', now(), now());

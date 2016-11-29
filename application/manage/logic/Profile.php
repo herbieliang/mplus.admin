@@ -19,6 +19,35 @@ use think\Session;
 class Profile extends BaseLogic
 {
     /**
+     * 获取个人资料数据
+     * @return null
+     */
+    public function get_model(){
+        $result = db('admin_profile')
+            ->alias('profile')
+            ->where('uid', Session::get('admin.id'))
+            ->join('__AUTH_GROUP__ group', 'group.title = "'.Session::get('admin.rolename').'"')
+            ->field('profile.*, group.rules')
+            ->find();
+        return $result ?: null;
+    }
+
+    /**
+     * 更新个人资料
+     * @param array $param
+     * @return array
+     */
+    public function save_profile($param){
+        $result = db('admin_profile')
+            ->where('uid', Session::get('admin.id'))
+            ->update($param);
+        Session::set('admin.nickname', $param['nickname']);
+        return $result ?
+            \app\manage\common::return_result('200', PROFILE_UPDATE_SUCCESS_TEXT, null) :
+            \app\manage\common::return_result('500', PROFILE_UPDATE_FAILED_TEXT, null);
+    }
+
+    /**
      * 上传头像
      * @param $param
      * @return array
@@ -52,5 +81,21 @@ class Profile extends BaseLogic
         }else{
             return \app\manage\common::return_result('500', AVATAR_UPDATE_FAILED_TEXT, null);
         }
+    }
+
+    /**
+     * 更新密码
+     * @param $param
+     * @return array
+     */
+    public function update_password($param){
+        $result = db('admin')
+            ->where('id', Session::get('admin.id'))
+            ->update([
+                'password'=>common::encrypt_password($param['password'])
+            ]);
+        return $result ?
+            \app\manage\common::return_result('200', UPDATE_PASSWORD_SUCCESS_TEXT, null) :
+            \app\manage\common::return_result('500', UPDATE_PASSWORD_FAILURE_TEXT, null);
     }
 }
