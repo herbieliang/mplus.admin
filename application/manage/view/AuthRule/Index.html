@@ -55,9 +55,15 @@
                         @{/eq}
                     </td>
                     <td>
-                        <button class="layui-btn layui-btn-normal layui-btn-mini do-action" data-type="doEdit" data-href="@{:url('Edit', ['uuid'=>$item.id])}">编辑</button>
-
-                        <button class="layui-btn layui-btn-danger layui-btn-mini do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.id}">删除</button>
+                        <ul class="layui-nav" lay-filter="">
+                            <li class="layui-nav-item">
+                                <a href="javascript:;">操作</a>
+                                <dl class="layui-nav-child">
+                                    <dd><a href="javascript:;" class="do-action" data-type="doEdit" data-href="@{:url('Edit', ['uuid'=>$item.id])}"><i class="layui-icon">&#xe642;</i> 编辑</a></dd>
+                                    <dd><a href="javascript:;" class="do-action" data-type="doDelete" data-href="@{:url('Delete')}" data-value="@{$item.id}"><i class="layui-icon">&#xe640;</i> 删除</a></dd>
+                                </dl>
+                            </li>
+                        </ul>
                     </td>
                 </tr>
             @{/volist}
