@@ -32,13 +32,11 @@ class Index extends BaseController
     }
 
     public function Index(){
-        $this->assign('data', $this->data);
-        return $this->fetch('Index' . DS . 'Index');
+        return $this->ShowView();
     }
 
     public function Home(){
-        $this->assign('data', $this->data);
-        return $this->fetch('Index' . DS .'Home');
+        return $this->ShowView();
     }
 
     public function SignOut(){

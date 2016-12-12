@@ -36,8 +36,7 @@ class Profile extends BaseController
     }
 
     public function Index(){
-        $this->assign('data', $this->data);
-        return $this->fetch('Profile' . DS . 'Index');
+        return $this->ShowView();
     }
 
     public function UploadAvatar(){

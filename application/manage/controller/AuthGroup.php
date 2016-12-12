@@ -42,8 +42,7 @@ class AuthGroup extends BaseController
      */
     public function Index(){
         $this->data['auth_groups'] = $this->auth_group_logic->get_list();
-        $this->assign('data', $this->data);
-        return $this->fetch('AuthGroup' . DS . 'Index');
+        return $this->ShowView();
     }
 
     /**
@@ -54,8 +53,7 @@ class AuthGroup extends BaseController
         if (request()->isPost()){
             return json($this->auth_group_logic->add(input('post.')));
         } else {
-            $this->assign('data', $this->data);
-            return $this->fetch('AuthGroup' . DS . 'Add');
+            return $this->ShowView();
         }
     }
 
@@ -69,8 +67,7 @@ class AuthGroup extends BaseController
             return json($this->auth_group_logic->edit(input('post.'), $uuid));
         } else {
             $this->data['auth_group'] = $this->auth_group_logic->get_model($uuid);
-            $this->assign('data', $this->data);
-            return $this->fetch('AuthGroup' . DS . 'Edit');
+            return $this->ShowView();
         }
     }
 

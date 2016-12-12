@@ -33,7 +33,7 @@ class Login extends Controller
         if (request()->isPost()){
             return json($this->login_logic->sign_in(input('post.')));
         } else {
-            return $this->fetch('Login' . DS . 'Index');
+            return $this->fetch(strtolower(request()->controller()) . DS . strtolower(request()->action()));
         }
     }
 }

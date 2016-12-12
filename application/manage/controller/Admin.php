@@ -43,8 +43,7 @@ class Admin extends BaseController
      */
     public function Index(){
         $this->data['admins'] = $this->admin_logic->get_list();
-        $this->assign('data', $this->data);
-        return $this->fetch('Admin' . DS . 'Index');
+        return $this->ShowView();
     }
 
     /**
@@ -55,8 +54,7 @@ class Admin extends BaseController
         if (request()->isPost()){
             return json($this->admin_logic->add(input('post.')));
         } else {
-            $this->assign('data', $this->data);
-            return $this->fetch('Admin' . DS . 'Add');
+            return $this->ShowView();
         }
     }
 
@@ -70,8 +68,7 @@ class Admin extends BaseController
             return json($this->admin_logic->edit(input('post.'), $uuid));
         } else {
             $this->data['admin'] = $this->admin_logic->get_model($uuid);
-            $this->assign('data', $this->data);
-            return $this->fetch('Admin' . DS . 'Edit');
+            return $this->ShowView();
         }
     }
 

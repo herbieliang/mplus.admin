@@ -35,8 +35,7 @@ class AuthRule extends BaseController
      */
     public function Index(){
         $this->data['auth_rules'] = $this->auth_rule_logic->get_list();
-        $this->assign('data', $this->data);
-        return $this->fetch('AuthRule' . DS . 'Index');
+        return $this->ShowView();
     }
 
     /**
@@ -47,8 +46,7 @@ class AuthRule extends BaseController
         if (request()->isPost()){
             return json($this->auth_rule_logic->add(input('post.')));
         } else {
-            $this->assign('data', $this->data);
-            return $this->fetch('AuthRule' . DS . 'Add');
+            return $this->ShowView();
         }
     }
 
@@ -62,8 +60,7 @@ class AuthRule extends BaseController
             return json($this->auth_rule_logic->edit(input('post.'), $uuid));
         } else {
             $this->data['auth_rule'] = $this->auth_rule_logic->get_model($uuid);
-            $this->assign('data', $this->data);
-            return $this->fetch('AuthRule' . DS . 'Edit');
+            return $this->ShowView();
         }
     }
 

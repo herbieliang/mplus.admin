@@ -32,6 +32,17 @@ class BaseController extends Controller
     }
 
     /**
+     * 渲染视图方法
+     */
+    public function ShowView(){
+        $controller = strtolower(request()->controller());
+        $action = strtolower(request()->action());
+        $template_file = $controller . DS . $action;
+        $this->assign('data', $this->data);
+        return $this->fetch($template_file);
+    }
+
+    /**
      * 登陆验证
      */
     public function CheckLogin(){

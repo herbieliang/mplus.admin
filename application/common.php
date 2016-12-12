@@ -32,4 +32,23 @@ class common{
     public static function encrypt_password($str){
         return md5(md5($str));
     }
+
+    /**
+     * 对象转成普通数组
+     * @param $obj
+     * @return mixed
+     */
+    public static function object_to_array($object)
+    {
+        $array = (array)$object;
+        foreach($array as $key=>$val){
+            if(is_object($val)){
+                $val = self::object_to_array($val);
+
+            }
+            $array[$key] = $val;
+        }
+
+        return $array;
+    }
 }
